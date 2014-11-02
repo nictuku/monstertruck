@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<map version="1.0" orientation="orthogonal" renderorder="right-up" width="50" height="3" tilewidth="200" tileheight="200">
+ <tileset firstgid="1" name="monstertiles" tilewidth="200" tileheight="200">
+  <image source="monstertiles.png" trans="99d9ea" width="1804" height="604"/>
+ </tileset>
+ <layer name="Tile Layer 1" width="50" height="3">
+  <data encoding="base64" compression="gzip">
+   H4sIAAAAAAAAC2NgGB6AC4p5gJgXiPmAWACCG4DsBqBYA1CugRuqbhTQFgAAdXhks1gCAAA=
+  </data>
+ </layer>
+ <layer name="Truck" width="50" height="3">
+  <data encoding="base64" compression="gzip">
+   H4sIAAAAAAAAC2NkGAWjgPoAALyCgEJYAgAA
+  </data>
+ </layer>
+</map>

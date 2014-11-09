@@ -161,7 +161,7 @@ func gfxLoop(w window.Window, r gfx.Renderer) {
 			}
 		}
 	}
-	truckLayer := layers["Truck"]
+	truckBox := newBox(layers["Truck"])
 	handleKey := func() {
 		var v lmath.Vec3
 		// Depending on keyboard state, transform the triangle.
@@ -170,18 +170,18 @@ func gfxLoop(w window.Window, r gfx.Renderer) {
 			// v.X -= 1
 		}
 		if kb.Down(keyboard.ArrowRight) {
-			v.X += 2
+			v.X += 3
 		}
 		if kb.Down(keyboard.ArrowDown) {
 			v.Z -= 1
 		}
 		if kb.Down(keyboard.ArrowUp) {
-			v.Z += 1
+			v.Z += 20
 		}
 		// Move the truck.
-		for _, obj := range truckLayer {
-			obj.SetPos(obj.Pos().Add(v))
-		}
+		truckBox.forces["gas"] = v
+		v = truckBox.applyPhysics()
+
 		camera.Lock()
 		camera.SetPos(camera.Pos().Add(v))
 		camera.Unlock()

@@ -173,7 +173,7 @@ func gfxLoop(w window.Window, r gfx.Renderer) {
 			v.Z -= 1
 		}
 		if kb.Down(keyboard.ArrowUp) {
-			v.Z += 20
+			v.Z += 10
 		}
 		// Move the truck.
 		truckBox.forces = append(truckBox.forces, v)

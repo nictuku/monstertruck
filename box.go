@@ -10,7 +10,7 @@ import (
 func newBox(layer map[string]*gfx.Object) *box {
 	return &box{
 		layer:           layer,
-		forces:          []lmath.Vec3{{Z: -9}},
+		forces:          []lmath.Vec3{},
 		surfaceFriction: 2,
 		kineticFriction: 0.5,
 		maxSpeed:        15,
@@ -26,7 +26,10 @@ type box struct {
 	maxSpeed        float64 // or add wind resistance.
 }
 
-const floor = -200
+const (
+	floorPos = -200
+	gravity  = 9
+)
 
 // applyPhysics to the box and returns its final movement vector.
 // assumes that velocity on X is always non-negative (can't move to the left).
@@ -38,14 +41,15 @@ func (b *box) applyPhysics() lmath.Vec3 {
 	if v.X <= b.surfaceFriction {
 		v.X = 0
 	}
+	// Gravity.
+	v.Z -= gravity
+
 	if v.X > 0 {
 		v.X -= b.kineticFriction
 		v.X = math.Max(0, v.X)
 
 		v.X = math.Min(v.X, b.maxSpeed)
 	}
-	// resulting vector
-	b.forces = []lmath.Vec3{v}
 
 	fmt.Println("result", v)
 	fmt.Println("applying forces")
@@ -53,10 +57,12 @@ func (b *box) applyPhysics() lmath.Vec3 {
 	// Finding collisions
 	for _, obj := range b.layer {
 		pos := obj.Pos().Add(v)
-		if pos.Z < floor { // collision with the floor.
-			v.Z = floor - obj.Pos().Z
+		if pos.Z < floorPos { // collision with the floor.
+			v.Z = floorPos - obj.Pos().Z
 		}
 	}
+	// resulting vector
+	b.forces = []lmath.Vec3{v}
 
 	for _, obj := range b.layer {
 		obj.SetPos(obj.Pos().Add(v))

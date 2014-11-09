@@ -184,8 +184,8 @@ func gfxLoop(w window.Window, r gfx.Renderer) {
 		camera.Unlock()
 	}
 
-	// 400 == 2 tiles. Get this from TMX.
-	camera.SetPos(lmath.Vec3{windowWidth, -2, 400})
+	// 600 == 3 tiles. Get the tile height from TMX.
+	camera.SetPos(lmath.Vec3{windowWidth, -2, 600})
 
 	for {
 		// Handle events.

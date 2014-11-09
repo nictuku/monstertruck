@@ -161,6 +161,12 @@ func gfxLoop(w window.Window, r gfx.Renderer) {
 			}
 		}
 	}
+	var col []*tmx.Object
+	for _, grp := range tmxMap.ObjectGroups {
+		if grp.Name == "Collision" {
+			col = grp.Objects
+		}
+	}
 	truckBox := newBox(layers["Truck"])
 	handleKey := func() {
 		var v lmath.Vec3
@@ -177,7 +183,7 @@ func gfxLoop(w window.Window, r gfx.Renderer) {
 		}
 		// Move the truck.
 		truckBox.forces = append(truckBox.forces, v)
-		v = truckBox.applyPhysics()
+		v = truckBox.applyPhysics(col)
 
 		camera.Lock()
 		camera.SetPos(camera.Pos().Add(v))

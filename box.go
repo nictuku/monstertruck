@@ -3,6 +3,7 @@ package main
 import (
 	"azul3d.org/gfx.v1"
 	"azul3d.org/lmath.v1"
+	"azul3d.org/tmx.dev"
 	"fmt"
 	"math"
 )
@@ -33,7 +34,7 @@ const (
 
 // applyPhysics to the box and returns its final movement vector.
 // assumes that velocity on X is always non-negative (can't move to the left).
-func (b *box) applyPhysics() lmath.Vec3 {
+func (b *box) applyPhysics(collision []*tmx.Object) lmath.Vec3 {
 	var v lmath.Vec3
 	for _, f := range b.forces {
 		v = v.Add(f)
@@ -60,7 +61,18 @@ func (b *box) applyPhysics() lmath.Vec3 {
 		if pos.Z < floorPos { // collision with the floor.
 			v.Z = floorPos - obj.Pos().Z
 		}
+
+		for _, c := range collision {
+			fmt.Printf("c %+v\n", c)
+			/*
+				if pos.Z < c.Y {
+					v.Z = c.Pos().Z - obj.Pos().Z
+				}
+			*/
+		}
+
 	}
+
 	// resulting vector
 	b.forces = []lmath.Vec3{v}
 

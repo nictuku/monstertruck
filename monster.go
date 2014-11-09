@@ -166,10 +166,7 @@ func gfxLoop(w window.Window, r gfx.Renderer) {
 		var v lmath.Vec3
 		// Depending on keyboard state, transform the triangle.
 		kb := w.Keyboard()
-		if kb.Down(keyboard.ArrowLeft) {
-			// v.X -= 1
-		}
-		if kb.Down(keyboard.ArrowRight) {
+		if kb.Down(keyboard.Space) {
 			v.X += 3
 		}
 		if kb.Down(keyboard.ArrowDown) {
@@ -179,7 +176,7 @@ func gfxLoop(w window.Window, r gfx.Renderer) {
 			v.Z += 20
 		}
 		// Move the truck.
-		truckBox.forces["gas"] = v
+		truckBox.forces = append(truckBox.forces, v)
 		v = truckBox.applyPhysics()
 
 		camera.Lock()

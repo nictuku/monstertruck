@@ -193,8 +193,8 @@ func gfxLoop(w window.Window, r gfx.Renderer) {
 
 		handleKey()
 
-		// Clear the entire area (empty rectangle means "the whole area").
-		r.Clear(image.Rect(0, 0, 0, 0), gfx.Color{1, 1, 1, 1})
+		// Paint the entire area black (empty rectangle means "the whole area").
+		r.Clear(image.Rect(0, 0, 0, 0), gfx.Color{0, 0, 0, 0})
 		r.ClearDepth(image.Rect(0, 0, 0, 0), 1.0)
 
 		// Draw the TMX map to the screen.
